@@ -2,10 +2,15 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<ContentBrowser @ref="ContentBrowser" />
 
-Welcome to your new app.
+<MudButton Class="ma-4" Variant="Variant.Filled" OnClick="Open" Size="Size.Large" Color="Color.Primary">Open content browser</MudButton>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+    ContentBrowser ContentBrowser { get; set; } = null!;
 
-<ContentBrowser />
+    void Open()
+    {
+        ContentBrowser.Open();
+    }
+}

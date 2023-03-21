@@ -1,6 +1,20 @@
 <MudDialog>
     <TitleContent>
-        Content Browser
+        <div class="d-flex justify-end">
+            <MudToggleIconButton 
+                Color="Color.Tertiary"
+                Toggled="fullScreen"
+                ToggledChanged="OnToggleFullscreen"
+                Icon="@Icons.Material.Filled.Fullscreen" 
+                ToggledIcon="@Icons.Material.Filled.CloseFullscreen">
+            </MudToggleIconButton>
+            <MudIconButton
+                Class="ms-2"
+                Color="Color.Error"
+                Icon="@Icons.Material.Filled.Close"
+                OnClick="Close">
+            </MudIconButton>
+        </div>
     </TitleContent>
     <DialogContent>
         <MudText>
@@ -17,18 +31,35 @@
         </MudText>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Close"></MudButton>
+        
     </DialogActions>
 </MudDialog>
 
 @code{
-    [CascadingParameter] 
-    required MudDialogInstance DialogInstance { get; set; }
+    [CascadingParameter]
+    MudDialogInstance DialogInstance { get; set; } = null!;
+
+    bool fullScreen = false;
+
+    DialogOptions Options => new()
+    {
+        MaxWidth = MaxWidth.Large,
+        FullScreen = fullScreen
+    };
 
     void Close() => DialogInstance.Close();
 
-    void ToggleFullscreen(bool? state = null)
+    void Update() => DialogInstance.SetOptions(Options);
+
+    protected override void OnInitialized()
     {
-        
+        Update();
+    }
+
+    void OnToggleFullscreen(bool state)
+    {
+        fullScreen = state;
+
+        Update();
     }
 }

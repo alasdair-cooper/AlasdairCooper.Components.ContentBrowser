@@ -3,6 +3,10 @@
 @code{
     public void Open()
     {
-        DialogService.Show<ContentBrowserDialog>();
+        DialogService.Show<ContentBrowserDialog>("Content Browser", new DialogOptions
+        {
+            MaxWidth = MaxWidth.Large,
+            NoHeader = true
+        });
     }
 }
